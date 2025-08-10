@@ -1,6 +1,7 @@
 package com.janzdev.restfulapi.entity;
 
 public enum Role {
-    USER,
+    READER,
+    MANAGER,
     ADMIN
 }

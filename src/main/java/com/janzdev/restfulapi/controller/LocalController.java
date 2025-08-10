@@ -5,56 +5,65 @@ import com.janzdev.restfulapi.error.LocalNotFoundException;
 import com.janzdev.restfulapi.service.LocalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/v1/locals")
 public class LocalController {
 
     @Autowired
     LocalService localService;
 
-    @GetMapping("/findAllLocals")
-    List<Local> findAllLocal(){
+    @GetMapping
+    @PreAuthorize("hasAnyRole('READER', 'MANAGER', 'ADMIN')")
+    public List<Local> findAllLocal(){
         return localService.findAllLocals();
     }
 
-    @PostMapping("/saveLocal")
-    Local saveLocal(@Valid @RequestBody Local local){
+    @GetMapping("/id/{id}")
+    @PreAuthorize("hasAnyRole('READER', 'MANAGER', 'ADMIN')")
+    public Local findLocalById(@PathVariable Long id) throws LocalNotFoundException {
+        return localService.findLocalById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    @PreAuthorize("hasAnyRole('READER', 'MANAGER', 'ADMIN')")
+    public Optional<Local> findByName(@PathVariable String name){
+        return localService.findByName(name);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+    public Local saveLocal(@Valid @RequestBody Local local){
         return localService.saveLocal(local);
     }
 
-    @PutMapping("/updateLocal/{id}")
-    Local updateLocal(@PathVariable long id, @RequestBody Local local){
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+    public Local updateLocal(@PathVariable long id, @RequestBody Local local){
         return localService.updateLocal(id, local);
     }
 
-    @DeleteMapping("/deleteLocal/{id}")
-    String deleteLocal(@PathVariable long id){
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String deleteLocal(@PathVariable long id){
         localService.deleteLocal(id);
         return "Successfully deleted";
     }
 
-    @GetMapping("/findLocalByNameWithJPQL/{name}")
-    Optional<Local> findLocalByNameWithJPQL(@PathVariable String name){
-        return localService.findLocalByNameWithJPQL(name);
-    }
-
-    @GetMapping("/findByName/{name}")
-    Optional<Local> findByName(@PathVariable String name){
-        return localService.findByName(name);
-    }
-
-    @GetMapping("/findByNameIgnoreCase/{name}")
-    Optional<Local> findByNameIgnoreCase(@PathVariable String name){
-        return localService.findByNameIgnoreCase(name);
-    }
-
-    @GetMapping("/findLocalById/{id}")
-    Local findLocalById(@PathVariable Long id) throws LocalNotFoundException {
-        return localService.findLocalById(id);
-    }
-
+//    @GetMapping("jpql/{name}")
+//    @PreAuthorize("hasAnyRole('READER', 'MANAGER', 'ADMIN')")
+//    public Optional<Local> findLocalByNameWithJPQL(@PathVariable String name){
+//        return localService.findLocalByNameWithJPQL(name);
+//    }
+//
+//    @GetMapping("/findByNameIgnoreCase/{name}")
+//    @PreAuthorize("hasAnyRole('READER', 'MANAGER', 'ADMIN')")
+//    public Optional<Local> findByNameIgnoreCase(@PathVariable String name){
+//        return localService.findByNameIgnoreCase(name);
+//    }
 }

@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService{
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(Role.READER)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

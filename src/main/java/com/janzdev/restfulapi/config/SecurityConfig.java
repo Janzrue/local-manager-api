@@ -24,21 +24,25 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers(publicEndpoints()).permitAll()
-                        .anyRequest().authenticated())
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(publicEndpoints()).permitAll()
+                        .requestMatchers("/api/v1/locals/**","/api/v1/auth/register","/api/v1/greeting/sayHelloProtected").authenticated()
+                        .anyRequest().denyAll()
+                )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
+
+        return http.build();
     }
 
     @Bean
     public RequestMatcher publicEndpoints(){
         return new OrRequestMatcher(
-                new AntPathRequestMatcher("/api/greeting/sayHelloPublic"),
-                new AntPathRequestMatcher("/api/auth/**")
+                new AntPathRequestMatcher("/api/v1/greeting/sayHelloPublic"),
+                new AntPathRequestMatcher("/api/v1/auth/authenticate")
         );
     }
 }
