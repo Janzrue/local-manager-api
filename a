@@ -1,0 +1,23 @@
+[33mcommit 0e8d5b08d0808939ebe98b15b798fd2208799e45[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/security-implementation[m[33m)[m
+Author: juanm <juanmaperez5826@gmail.com>
+Date:   Mon Aug 11 07:22:20 2025 -0500
+
+    mod: remove jwt secret from jwtService
+
+[33mcommit c9c4c0b8829cd7876ad56cbe887f217f8157bb20[m
+Author: juanm <juanmaperez5826@gmail.com>
+Date:   Sun Aug 10 15:59:46 2025 -0500
+
+    feat: Added roles and permissions
+
+[33mcommit 1ba0d99c64cf9ff313861493253e2ada8c39a3ec[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: juanm <juanmaperez5826@gmail.com>
+Date:   Wed Aug 6 17:02:42 2025 -0500
+
+    feat: Implement Spring Security
+
+[33mcommit 7da0ecd2684efe2807adb52614bcc4cd30c17088[m
+Author: juanm <juanmaperez5826@gmail.com>
+Date:   Wed Aug 6 10:50:03 2025 -0500
+
+    First commit: Functional REST API for Local management
