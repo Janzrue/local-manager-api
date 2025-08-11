@@ -52,3 +52,4 @@ Thumbs.db
 ### Sensitive files ###
 # Application settings
 application.properties
+.env
