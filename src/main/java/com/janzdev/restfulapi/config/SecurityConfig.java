@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(publicEndpoints()).permitAll()
                         .requestMatchers("/api/v1/locals/**","/api/v1/auth/register","/api/v1/greeting/sayHelloProtected").authenticated()
-                        .anyRequest().denyAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -42,7 +42,13 @@ public class SecurityConfig {
     public RequestMatcher publicEndpoints(){
         return new OrRequestMatcher(
                 new AntPathRequestMatcher("/api/v1/greeting/sayHelloPublic"),
-                new AntPathRequestMatcher("/api/v1/auth/authenticate")
+                new AntPathRequestMatcher("/api/v1/auth/authenticate"),
+                new AntPathRequestMatcher("/swagger-ui.html"),
+                new AntPathRequestMatcher("/swagger-ui/**"),
+                new AntPathRequestMatcher("/v3/api-docs/**"),
+                new AntPathRequestMatcher("/swagger-resources/**"),
+                new AntPathRequestMatcher("/swagger-resources"),
+                new AntPathRequestMatcher("/api-docs/**")
         );
     }
 }
