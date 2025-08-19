@@ -1,6 +1,7 @@
-package com.janzdev.restfulapi.repository;
+package com.janzdev.restfulapi.unit.repository;
 
 import com.janzdev.restfulapi.entity.Local;
+import com.janzdev.restfulapi.repository.LocalRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

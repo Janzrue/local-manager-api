@@ -1,5 +1,6 @@
-package com.janzdev.restfulapi.controller;
+package com.janzdev.restfulapi.unit.controller;
 
+import com.janzdev.restfulapi.controller.LocalController;
 import com.janzdev.restfulapi.entity.Local;
 import com.janzdev.restfulapi.service.LocalService;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,8 @@
-package com.janzdev.restfulapi.service;
+package com.janzdev.restfulapi.unit.service;
 
 import com.janzdev.restfulapi.entity.Local;
 import com.janzdev.restfulapi.repository.LocalRepository;
+import com.janzdev.restfulapi.service.LocalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
